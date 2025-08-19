@@ -1,4 +1,4 @@
-# MERN-PROJECT-1
+# Weather-App
 
 This is a full-stack weather application built using the MERN stack (MongoDB, Express.js, React, Node.js). It features user authentication (signup and login) and a weather dashboard that displays real-time weather information for a specified city or the user's current location.
 
