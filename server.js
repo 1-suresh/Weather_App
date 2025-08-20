@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').config();
 
 // Import required packages
 const express = require('express');
@@ -18,7 +19,7 @@ app.use(express.static(path.join(__dirname)));
 
 
 // --- MongoDB Connection ---
-const dbURI = 'mongodb://127.0.0.1:27017/weather-auth-app';
+const dbURI = process.env.DB_URI;
 
 mongoose.connect(dbURI)
   .then(() => console.log('Successfully connected to MongoDB'))
@@ -82,6 +83,38 @@ app.post('/api/login', async (req, res) => {
 // Root Route to serve the HTML file
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// server.js
+
+// Add this new route before your app.listen() call
+
+// Weather API Route
+app.get('/api/weather', async (req, res) => {
+    const { city, lat, lon } = req.query;
+    const apiKey = process.env.WEATHER_API_KEY; // Use the secure key
+     console.log('Using Weather API Key:', apiKey);
+    let apiUrl;
+
+    if (city) {
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    } else if (lat && lon) {
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    } else {
+        return res.status(400).json({ message: 'City or coordinates are required.' });
+    }
+
+    try {
+        const weatherResponse = await fetch(apiUrl);
+        const weatherData = await weatherResponse.json();
+        if (!weatherResponse.ok) {
+            throw new Error(weatherData.message || 'Failed to fetch weather data');
+        }
+        res.status(200).json(weatherData);
+    } catch (error) {
+        console.error('Weather API Error:', error);
+        res.status(500).json({ message: error.message });
+    }
 });
 
 
