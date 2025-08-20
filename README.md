@@ -10,6 +10,12 @@ This is a full-stack weather application built using the MERN stack (MongoDB, Ex
 -   **Dynamic Weather Display**: Users can search for weather information by city name or use their browser's geolocation feature.
 -   **Responsive UI**: The client-side interface is styled with Tailwind CSS and is designed to be responsive.
 
+## Screenshots
+
+<img width="1695" height="865" alt="Screenshot 2025-08-20 212753" src="https://github.com/user-attachments/assets/657f2785-405a-469b-90dd-f34fa9167186" />
+
+<img width="1407" height="897" alt="Screenshot 2025-08-20 212443" src="https://github.com/user-attachments/assets/7a9b9ae1-508d-4ac2-ab4e-3bd584528247" />
+
 ## Technologies Used
 
 * **Frontend**:
